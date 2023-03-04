@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.smitchapp1.viewmodels.MainViewModel;
 import com.example.smitchapp1.adapters.ScanRecyclerView;
@@ -33,19 +31,16 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        Log.e("helloTest", "test");
         initializeServerSocket();
         binding.btnPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "HEllo testing", Toast.LENGTH_SHORT).show();
                 viewModel.registerService(localPort, MainActivity.this);
             }
         });
         binding.btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "HEllo testing11", Toast.LENGTH_SHORT).show();
                 viewModel.discoverService(MainActivity.this);
                 viewModel.getScanResults().observe(MainActivity.this, new Observer<List<ScanResultModel>>() {
                     @Override
